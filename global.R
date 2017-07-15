@@ -1,4 +1,7 @@
-# convert matrix to dataframe
+
+load('country_summary.Rda')
+load('region_summary.Rda')
+
 
 regions_summ_mean
 
@@ -12,6 +15,8 @@ country_summ_mean
 choice <- colnames(country_summ_mean)[c(-1, -2, -3, -4)]
 choice2 <- colnames(regions_summ_mean)[c(-1, -2)]
 
+
+Region <- regions_summ_mean$Region
 
 library(DT)
 library(shiny)
