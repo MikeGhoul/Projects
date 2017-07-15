@@ -5,8 +5,13 @@ library(plotly)
 
 shinyServer(function(input, output){
     # show map using googleVis
-    output$region <- renderGvis({
-        gvisGeoChart(country_summ_mean, "Country Name", input$selected,
+    
+  map_out <- reactive({
+    country_summ_mean %>% select_(input$selected) %>% filter(., year == input$Year)
+  })
+  
+  output$region <- renderGvis({
+        gvisGeoChart(map_out(), "Country Name", input$selected,
                     
                      options=list(width="auto", height="auto"))
     })
