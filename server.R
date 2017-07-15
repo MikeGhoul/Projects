@@ -11,14 +11,19 @@ shinyServer(function(input, output){
                      options=list(width="auto", height="auto"))
     })
     
-    # dataset <- reactive({
-    #  regions_summ_mean 
-    # })
+    dataset <- reactive({
+     regions_summ_mean %>% group_by(., Region) %>% 
+        select_(input$selected2)
+    })
   
+    
+    
     output$graph <- renderPlotly({
-      print(class(regions_summ_mean$year))
-      plot_ly(regions_summ_mean, type = 'scatter', mode = 'lines+markers', x = as.integer(regions_summ_mean$year),
-              y =  input$selected2, color = Region)
+     
+     
+      plot_ly(dataset(), type = 'scatter', mode = 'lines+markers', x = as.numeric(dataset()$year),
+              y =  pull(dataset(),input$selected2), color = ~Region)
+
 
       # p <- ggplot(dataset(), aes(x = year, y = input$selected2, color = Region)) +
       #   geom_point()
@@ -51,7 +56,7 @@ shinyServer(function(input, output){
     
     # show data using DataTable
     output$table <- DT::renderDataTable({
-        datatable(country_summ_mean, rownames=FALSE) %>% 
+        datatable(regions_summ_mean, rownames=FALSE) %>% 
             formatStyle(input$selected, background="skyblue", fontWeight='bold')
     })
     
