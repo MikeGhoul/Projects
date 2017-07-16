@@ -2,6 +2,7 @@
 load('country_summary.Rda')
 load('region_summary.Rda')
 load('addl_info.Rda')
+load('country_format.Rda')
 
 regions_summ_mean
 
