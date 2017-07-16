@@ -1,7 +1,7 @@
 
 load('country_summary.Rda')
 load('region_summary.Rda')
-
+load('addl_info.Rda')
 
 regions_summ_mean
 
@@ -21,7 +21,7 @@ Region <- regions_summ_mean$Region
 library(DT)
 library(shiny)
 library(shinydashboard)
-library(DT)
+library(dplyr)
 library(shiny)
 library(googleVis)
 library(plotly)

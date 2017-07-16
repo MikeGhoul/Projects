@@ -16,18 +16,16 @@ shinyServer(function(input, output){
                      options=list(width="auto", height="auto"))
     })
     
-    dataset <- reactive({
-     regions_summ_mean %>% select_(input$selected2)
-    })
-    
-
-    output$graph <- renderPlotly({
-     
+  dataset <- reactive({
+    regions_summ_mean %>% select_(input$selected2, 'Region')
+  })
+  
+  output$graph <- renderPlotly({
+    print(dataset())
     plot_ly(dataset(), type = 'scatter', mode = 'lines+markers', x = as.numeric(dataset()$year),
-              y =  pull(dataset(),input$selected2), color = ~Region)
-
-
-    })
+            y =  pull(dataset(),input$selected2), color = Region)
+    
+  })
     
    
     # show data using DataTable
@@ -35,5 +33,13 @@ shinyServer(function(input, output){
         datatable(country_summ_mean, rownames=FALSE) %>% 
             formatStyle(input$selected, background="skyblue", fontWeight='bold')
     })
- 
+    
+    txt <- reactive({
+      addl_info %>% select_(input$selected3)
+    })
+    
+    output$info <- renderText({
+      as.vector(txt()[1, ])
+    })
+    
 })
