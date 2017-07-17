@@ -17,7 +17,7 @@ shinyServer(function(input, output){
     })
     
   dataset <- reactive({
-    regions_summ_mean %>% select_(input$selected2, 'Region')
+    as.data.frame(regions_summ_mean %>% select_(input$selected2, 'Region'))
   })
   
   output$graph <- renderPlotly({
@@ -30,7 +30,7 @@ shinyServer(function(input, output){
    
     # show data using DataTable
     output$table <- DT::renderDataTable({
-        datatable(country_summ_mean, rownames=FALSE) %>% 
+        datatable(country_summ_mean, rownames=FALSE, options = list(scrollX = TRUE)) %>% 
             formatStyle(input$selected, background="skyblue", fontWeight='bold')
     })
     
