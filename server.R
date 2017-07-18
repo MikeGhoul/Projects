@@ -20,18 +20,19 @@ shinyServer(function(input, output){
     as.data.frame(regions_summ_mean %>% select_(input$selected2, 'Region'))
   })
   
-  output$graph <- renderPlotly({
+
+    output$graph <- renderPlotly({
     print(dataset())
     plot_ly(dataset(), type = 'scatter', mode = 'lines+markers', x = as.numeric(dataset()$year),
-            y =  pull(dataset(),input$selected2), color = Region)
+            y =  pull(dataset(),input$selected2), color = Region)%>%
+      layout(xaxis = a, 
+             yaxis = list(title=input$selected2))
     
-  })
-    
-   
+    })
+  
     # show data using DataTable
     output$table <- DT::renderDataTable({
-        datatable(country_summ_mean, rownames=FALSE, options = list(scrollX = TRUE)) %>% 
-            formatStyle(input$selected, background="skyblue", fontWeight='bold')
+        datatable(country_format, rownames=FALSE, options = list(scrollX = TRUE))
     })
     
     txt <- reactive({
@@ -40,6 +41,24 @@ shinyServer(function(input, output){
     
     output$info <- renderText({
       as.vector(txt()[1, ])
+    })
+    
+    # output$cor <- renderPlot({
+    #   y2_g <- corrplot(y2_c)
+    # })
+    # 
+   
+    df <- reactive({ 
+      as.data.frame(x2) %>% select_(input$xvalue, input$yvalue, 'Country')
+   })
+    
+     output$cor_plot <- renderPlotly({
+      print(df())
+      plot_ly(df(), type = 'scatter', mode = "markers",  x = pull(df(), input$xvalue), 
+              y = pull(df(), input$yvalue), color = df()$Country) %>% 
+      layout( xaxis = list( title=input$xvalue),
+              yaxis = list( title=input$yvalue ))
+
     })
     
 })
