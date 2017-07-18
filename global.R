@@ -12,24 +12,16 @@ load('region_summary.Rda')
 load('addl_info.Rda')
 load('country_format.Rda')
 
-regions_summ_mean
-
 
 regions_summ_mean$year <- as.numeric(regions_summ_mean$year)
 
-
-country_summ_mean
-
-# create variable with colnames as choice
-choice <- colnames(country_summ_mean)[c(-1, -2, -3, -4)]
-choice2 <- colnames(regions_summ_mean)[c(-1, -2)]
 
 y <- regions_summ_mean[complete.cases(regions_summ_mean[ , -c(1:2, 4, 5, 14, 16, 18, 20, 22, 24, 26, 27, 28)]) ,]
 
 y <- y [ , -c(1:2, 4, 5, 14, 16, 18, 20, 22, 24, 26, 27, 28)]
 
 y2 <- y[ , -c(3, 12)]
-
+y2_c <- cor(y2)
 
 x <- country_summ_mean[complete.cases(country_summ_mean[ , -c(1:4, 6, 7, 16, 18, 20, 22, 24, 26, 28, 29, 30)]) ,]
 
@@ -39,29 +31,23 @@ x2 <- x[ , -c(7, 16)]
 
 colnames(x2)[2] <- 'Country'
 
-colnames(y2) <- c('Cumulative drop out', 'Expenditure on ed', 'Expenditure prim ed', 'GNI Atlas',
-                  'GNI PPP', 'Govt expenditure ed %GDP', 'Govt expenditure on prim ed %GDP', 'Gross enrollment ratio',
-                  'Gross enrollment ratio GPI', 'Literacy rate bt 25 and 64', 'Net enrollment ratio', 'Net enrollment ratio GPI',
-                  'Pupil to teacher ratio', 'Unemployment rate')
+# colnames(y2) <- c('Cumulative drop out', 'Expenditure on ed', 'Expenditure prim ed', 'GNI Atlas',
+#                   'GNI PPP', 'Govt expenditure ed %GDP', 'Govt expenditure on prim ed %GDP', 'Gross enrollment ratio',
+#                   'Gross enrollment ratio GPI', 'Literacy rate bt 25 and 64', 'Net enrollment ratio', 'Net enrollment ratio GPI',
+#                   'Pupil to teacher ratio', 'Unemployment rate')
 
 
-y2_c <- cor(y2)
-
-a <- list(
-  title = "Year",
-  # titlefont = f1,
-  showticklabels = TRUE)
-
-b <- list(
-  # titlefont = f1,
-  showticklabels = TRUE)
 
 
 Region <- regions_summ_mean$Region
 
 
-# various choice inputs for user:
+# create variable with colnames as choice
+choice <- colnames(country_summ_mean)[c(-1, -2, -3, -4)]
+choice2 <- colnames(regions_summ_mean)[c(-1, -2)]
 
+
+# various choice inputs for user:
 region_choice <- c('Cumulative drop-out rate to the last grade of primary education, both sexes (%)' = 'Cum_drop_both',
   'Cumulative drop-out rate to the last grade of primary education, female (%)' =  'Cum_drop_f', 
   'Cumulative drop-out rate to the last grade of primary education, male (%)' ='Cum_drop_m', 
