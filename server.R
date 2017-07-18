@@ -49,13 +49,13 @@ shinyServer(function(input, output){
     
     # Correlation plot
     output$cor <- renderPlot({
-      y2_g <- corrplot(y2_c)
+      corr_data_g <- corrplot(corr_data_c)
     })
     
    
     # show correlation plots using plotly:
     df <- reactive({ 
-      as.data.frame(x2) %>% select_(input$xvalue, input$yvalue, 'Country')
+      as.data.frame(corr_data_count) %>% select_(input$xvalue, input$yvalue, 'Country')
    })
     
      output$cor_plot <- renderPlotly({

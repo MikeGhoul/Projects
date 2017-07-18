@@ -11,32 +11,13 @@ load('country_summary.Rda')
 load('region_summary.Rda')
 load('addl_info.Rda')
 load('country_format.Rda')
-
+load('corr_data.Rda')
+load('corr_data_count.Rda')
 
 regions_summ_mean$year <- as.numeric(regions_summ_mean$year)
 
 
-y <- regions_summ_mean[complete.cases(regions_summ_mean[ , -c(1:2, 4, 5, 14, 16, 18, 20, 22, 24, 26, 27, 28)]) ,]
-
-y <- y [ , -c(1:2, 4, 5, 14, 16, 18, 20, 22, 24, 26, 27, 28)]
-
-y2 <- y[ , -c(3, 12)]
-y2_c <- cor(y2)
-
-x <- country_summ_mean[complete.cases(country_summ_mean[ , -c(1:4, 6, 7, 16, 18, 20, 22, 24, 26, 28, 29, 30)]) ,]
-
-x <- x [ , -c(6, 7, 16, 18, 20, 22, 24, 26, 28, 29, 30)]
-
-x2 <- x[ , -c(7, 16)]
-
-colnames(x2)[2] <- 'Country'
-
-# colnames(y2) <- c('Cumulative drop out', 'Expenditure on ed', 'Expenditure prim ed', 'GNI Atlas',
-#                   'GNI PPP', 'Govt expenditure ed %GDP', 'Govt expenditure on prim ed %GDP', 'Gross enrollment ratio',
-#                   'Gross enrollment ratio GPI', 'Literacy rate bt 25 and 64', 'Net enrollment ratio', 'Net enrollment ratio GPI',
-#                   'Pupil to teacher ratio', 'Unemployment rate')
-
-
+corr_data_c <- cor(corr_data)
 
 
 Region <- regions_summ_mean$Region
