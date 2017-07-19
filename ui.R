@@ -64,15 +64,17 @@ shinyUI(dashboardPage(
                              ), 
             
             tabItem(tabName = "cor",
-                    fluidRow(infoBoxOutput("corBox")),
                     fluidRow(box(title = 'Correlation between Indicators',
                                  selectizeInput('xvalue',
                                                 'Choose an x variable',
-                                               x_cor_choice),
+                                                x_cor_choice),
                                  selectizeInput('yvalue',
                                                 'Choose a y variable',
-                                                y_cor_choice),
-                                 plotlyOutput('cor_plot'), width = '100%')),
+                                                y_cor_choice)),
+                              infoBoxOutput("corBox")),
+                    
+                             
+                    fluidRow(plotlyOutput('cor_plot'), width = '100%'),
                     
                     
                     fluidRow(box(title = 'Correlation Plot', plotOutput('cor'), width = '100%')))

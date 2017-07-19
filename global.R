@@ -5,6 +5,7 @@ library(dplyr)
 library(shiny)
 library(googleVis)
 library(plotly)
+library(corrplot)
 
 
 load('country_summary.Rda')
